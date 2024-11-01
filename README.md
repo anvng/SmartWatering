@@ -70,28 +70,35 @@ This project implements an automated plant watering system using an ESP32 microc
 
 ## Diagram
 
-<img src="./smart_watering.png" alt="Diagram">
+<img src="https://raw.githubusercontent.com/anvng/SmartWatering/refs/heads/master/img/smart_watering.png" alt="Diagram">
 
 ## More
 
-+---------------------+
-|      ESP32         |
-|                    |
-|  GPIO33 ----→ Soil Moisture Sensor (Analog Input)
-|                    |
-|  GPIO4  ----→ Relay Module ----→ Water Pump
-|                    |
-|  GPIO21 ----→ LCD SDA (I2C)
-|  GPIO22 ----→ LCD SCL (I2C)
-|                    |
-|  WiFi   ----→ Blynk Cloud
-|                    |
-+---------------------+
+##### High-Level Component Diagram
+```mermaid
+graph TD
+    A[Blynk Cloud<br>Remote Control] <--> |WiFi| B[ESP32<br>Microcontroller]
+    B --> C[Soil Moisture Sensor]
+    B --> D[Relay Module]
+    B --> E[LCD Display<br>I2C]
+    D --> F[Water Pump]
+```
+
+##### ESP32 Pin Configuration
+```mermaid
+graph LR
+    A[ESP32] --> |GPIO33| B[Soil Moisture Sensor<br>Analog Input]
+    A --> |GPIO4| C[Relay Module] --> D[Water Pump]
+    A --> |GPIO21| E[LCD SDA I2C]
+    A --> |GPIO22| F[LCD SCL I2C]
+    A --> |WiFi| G[Blynk Cloud]
+```
 
 Data Flow:
 1. Soil Moisture → ESP32 → Blynk App
 2. Blynk App → ESP32 → Relay → Pump
 3. ESP32 → LCD Display (Status)
+
 
 
 ## Contributing
